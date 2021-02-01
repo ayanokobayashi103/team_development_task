@@ -17,7 +17,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -43,7 +43,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - January
     - February
     - March
@@ -216,6 +216,7 @@ en:
   views:
     messages:
       create_agenda: 'Successfully created an agenda!'
+      destroy_agenda: 'Successfully deleted an agenda!'
       create_article: 'Successfully created an article!'
       update_article: 'Successfully updated the article!'
       assigned: 'Assigned!'
