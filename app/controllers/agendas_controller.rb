@@ -22,12 +22,13 @@ class AgendasController < ApplicationController
   end
 
   def destroy
-    unless @agenda.user_id == @agenda.team.owner_id && @agenda.user_id == current_user.id
-      redirect_to dashboard_url, notice: "削除できません"
-    else
+  #  binding.irb
+    if @agenda.team.owner_id == current_user.id || @agenda.user_id == current_user.id
       AgendaDestroyMailer.agenda_destroy_mail(@agenda).deliver
       @agenda.destroy
       redirect_to dashboard_url, notice: I18n.t('views.messages.destroy_agenda')
+    else
+      redirect_to dashboard_url, notice: "削除できません"
     end
   end
 
