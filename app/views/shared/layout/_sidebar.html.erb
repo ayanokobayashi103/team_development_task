@@ -32,11 +32,11 @@
           <li class="nav-item has-treeview menu-open">
             <ul href="#" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
-              <li>
+              <li style="display: inline;">
                 <a><%= agenda.title %><a>
                 <i class="right fa fa-angle-left"></i>
               </li>
-              <li>
+              <li style="display: inline;">
                 <a><%= link_to '削除', agenda_path(agenda.id), method: :delete, data: { confirm: '本当に削除していいですか？' }, id:"delete_agenda"%></a>
               </li>
             </ul>
