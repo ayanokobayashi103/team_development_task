@@ -22,7 +22,6 @@ class AgendasController < ApplicationController
   end
 
   def destroy
-  #  binding.irb
     if @agenda.team.owner_id == current_user.id || @agenda.user_id == current_user.id
       AgendaDestroyMailer.agenda_destroy_mail(@agenda).deliver
       @agenda.destroy
