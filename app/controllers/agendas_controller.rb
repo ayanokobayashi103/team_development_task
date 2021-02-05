@@ -17,7 +17,8 @@ class AgendasController < ApplicationController
     if current_user.save && @agenda.save
       redirect_to dashboard_url, notice: I18n.t('views.messages.create_agenda')
     else
-      render :new
+      redirect_to dashboard_url, notice: "エラー"
+      #render :new
     end
   end
 
