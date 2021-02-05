@@ -18,7 +18,6 @@ class AgendasController < ApplicationController
       redirect_to dashboard_url, notice: I18n.t('views.messages.create_agenda')
     else
       redirect_to dashboard_url, notice: "1〜15文字以内のアジェンダにしてください"
-      #render :new
     end
   end
 
