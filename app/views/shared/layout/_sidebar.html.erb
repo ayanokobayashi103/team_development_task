@@ -5,7 +5,7 @@
   <% end %>
 
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar" class="overflow-auto" style="width:500px;">
     <div class="user-panel mt-3 pb-3 mb-3">
       <div class="info">
         <h3 style="color: white;"><%= @working_team.name.truncate(15) %></h3>
@@ -30,14 +30,18 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <% @working_team.agendas.each do |agenda| %>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
+            <ul href="#" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
-              <p>
-                <%= agenda.title %>
+              <li style="display: inline;">
+                <a><%= agenda.title %><a>
                 <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
+              </li>
+              <li style="display: inline;">
+                <a><%= link_to '削除', agenda_path(agenda.id), method: :delete, data: { confirm: '本当に削除していいですか？' }, id:"delete_agenda"%></a>
+              </li>
+            </ul>
             <ul class="nav nav-treeview" style="display: block;">
+
               <% agenda.articles.each do |article| %>
                 <li class="nav-item">
                   <%= link_to article_path(article), class: 'nav-link' do %>
