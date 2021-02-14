@@ -38,14 +38,20 @@
               <table class="table">
                 <tbody>
                   <% @team.assigns.each do |assign| %>
-                    <tr>
-                      <td><%= image_tag 'default.jpg', size: '40x40' %></td>
-                      <td><%= assign.user.email %></td>
-                      <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
-
-                    </tr>
-                  <% end %>
-                </tbody>
+                   <tr>
+                     <td><%= image_tag 'default.jpg', size: '40x40' %></td>
+                     <td><%= assign.user.email %></td>
+                     <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                     <td>
+                        <% if current_user == @team.owner %>
+                          <% if current_user.email != assign.user.email %>
+                            <%= link_to '権限移動', chengeowner_team_path(@team.id, assign_user_id: assign.user.id), method: :patch, class: 'btn btn-sm btn-primary' %>
+                          <% end %>
+                        <% end %>
+                      </td>
+                   </tr>
+                 <% end %>
+               </tbody>
               </table>
             </div>
           </div>
