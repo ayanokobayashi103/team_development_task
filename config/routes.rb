@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resource :user
 
   resources :teams do
-    patch 'chengeowner', :on => :member
     resources :assigns, only: %w(create destroy)
+    patch 'chengeowner', on: :member
     resources :agendas, shallow: true do
       resources :articles do
         resources :comments
