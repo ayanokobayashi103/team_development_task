@@ -48,9 +48,10 @@ class TeamsController < ApplicationController
   end
 
   def chengeowner
-    binding.pry
-    if @team.owner_id.update(assign.id)
-       redirect_to team_url(params[:team_id]), notice: '権限を移動しました'
+    binding.irb
+  #  assign = Assign.find(params[:id])
+    if @team.update(owner_id: assign.user.id)
+       redirect_to team_url, notice: '権限を移動しました'
     end
   end
 

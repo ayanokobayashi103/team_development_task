@@ -45,7 +45,7 @@
                      <td>
                         <% if current_user == @team.owner %>
                           <% if current_user.email != assign.user.email %>
-                            <%= link_to '権限移動', chengeowner_team_path(@team.id, assign_user_id: assign.user.id), method: :patch, class: 'btn btn-sm btn-primary' %>
+                            <%= link_to '権限移動', chengeowner_team_path(@team, assign.user.id), method: :patch, class: 'btn btn-sm btn-primary' %>
                           <% end %>
                         <% end %>
                       </td>
