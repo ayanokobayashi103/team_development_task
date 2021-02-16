@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: %i[show edit update destroy chengeowner]
   before_action :team_owner, only: %i[edit update]
+
   def index
     @teams = Team.all
   end
@@ -49,9 +50,8 @@ class TeamsController < ApplicationController
   end
 
   def chengeowner
-    binding.irb
-  #  assign = Assign.find(params[:id])
-    if @team.update(owner_id: assign.user.id)
+    if @team.update(owner_id: params[:user_id])
+        TeamOwnerMailer.team_owner_mail(@team.owner).deliver
        redirect_to team_url, notice: '権限を移動しました'
     end
   end
