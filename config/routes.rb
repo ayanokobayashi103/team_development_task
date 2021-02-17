@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
   resource :user
-  
+
   resources :teams do
     resources :assigns, only: %w(create destroy)
+    patch 'chengeowner', on: :member
     resources :agendas, shallow: true do
       resources :articles do
         resources :comments

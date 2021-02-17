@@ -10,7 +10,9 @@
               <%= image_tag default_img(@team.icon_url), class: 'img' %><br>
               <%= @team.name %>
             </div>
-            <%= link_to I18n.t('views.messages.edit_team'), edit_team_path(@team), class: 'btn btn-success btn-block mt-3' %>
+              <% if current_user == @team.owner %>
+                <%= link_to I18n.t('views.messages.edit_team'), edit_team_path(@team), class: 'btn btn-success btn-block mt-3' %>
+              <% end %>
           </div>
 
           <div class="col-md-8">
@@ -38,14 +40,26 @@
               <table class="table">
                 <tbody>
                   <% @team.assigns.each do |assign| %>
-                    <tr>
-                      <td><%= image_tag 'default.jpg', size: '40x40' %></td>
-                      <td><%= assign.user.email %></td>
-                      <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
-
-                    </tr>
-                  <% end %>
-                </tbody>
+                   <tr>
+                     <td><%= image_tag 'default.jpg', size: '40x40' %></td>
+                     <td><%= assign.user.email %></td>
+                     <td>
+                       <% if current_user == @team.owner || current_user.id == assign.user.id %>
+                        <!--  (@team, assign) assignの情報を削除したい -->
+                        <%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %>
+                       <% end %>
+                     </td>
+                     <td>
+                        <% if current_user == @team.owner %>
+                          <% if current_user.email != assign.user.email %>
+                            <!--  (@team, user_id: assign.user.id) assignの情報ではなく、assignのuser.idを情報を取得したい場合指定して変数に格納しパラメーターで送る -->
+                            <%= link_to '権限移動', chengeowner_team_path(@team, user_id: assign.user.id), method: :patch, class: 'btn btn-sm btn-primary' %>
+                          <% end %>
+                        <% end %>
+                      </td>
+                   </tr>
+                 <% end %>
+               </tbody>
               </table>
             </div>
           </div>

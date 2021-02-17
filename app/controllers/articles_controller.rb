@@ -25,12 +25,15 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    agenda = Agenda.find(params[:agenda_id])
-    article = agenda.articles.build(article_params)
-    article.user = current_user
-    article.team_id = agenda.team_id
-    if article.save
-      redirect_to article_url(article), notice: I18n.t('views.messages.create_article')
+    # どのagendaのarticleか指定しないといけないのでまずはどのagendaか探す。
+    @agenda = Agenda.find(params[:agenda_id])
+    # paramsで送られてきたarticleを@articleに代入
+    @article = @agenda.articles.build(article_params)
+    # articleにuser_id,team_id代入
+    @article.user = current_user
+    @article.team_id = @agenda.team_id
+    if @article.save
+      redirect_to article_url(@article), notice: '記事を作成しました'
     else
       render :new
     end
@@ -46,7 +49,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to dashboard_url
+    redirect_to dashboard_url, notice: '記事を削除しました'
   end
 
   private
