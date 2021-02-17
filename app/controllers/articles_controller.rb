@@ -25,8 +25,11 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    # どのagendaのarticleか指定しないといけないのでまずはどのagendaか探す。
     @agenda = Agenda.find(params[:agenda_id])
+    # paramsで送られてきたarticleを@articleに代入
     @article = @agenda.articles.build(article_params)
+    # articleにuser_id,team_id代入
     @article.user = current_user
     @article.team_id = @agenda.team_id
     if @article.save
